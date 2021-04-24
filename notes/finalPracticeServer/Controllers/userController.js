@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
   
 })
 .then(user => {
-    let token = jwt.sign({id: user.id}, "I_AM_SECRET", {expiresIn: '1d'})
+    let token = jwt.sign({id: user.id}, process.env.SECRET, {expiresIn: '1d'})
     res.send({ user, token })
 })
 .catch(error => res.status(500).send({
@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
             })
             function generateToken(user){
                 // create the token
-                let token = jwt.sign({id: user.id}, 'I_AM_SECRET', {expiresIn: '1d'});
+                let token = jwt.sign({id: user.id}, process.env.SECRET, {expiresIn: '1d'});
                 // send the response
                 res.send({user, token})
             }
